@@ -1,3 +1,7 @@
+using TestingGitHub_Podium;
+using TestingGitHub_Podium.Data;
+using Microsoft.EntityFrameworkCore;
+
 namespace TestingGitHub_Podium
 {
     public class Program
@@ -8,6 +12,12 @@ namespace TestingGitHub_Podium
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            //fetchs connection string
+            var connString = builder.Configuration.GetConnectionString("DefaultConnection");
+
+
+            builder.Services.AddDbContext<TestDbContext>(options => options.UseSqlServer(connString));
 
             var app = builder.Build();
 
